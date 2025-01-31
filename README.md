@@ -1,1 +1,1 @@
-A script to retrieve data to create a weather and news report that is sent to the user via email
+Building a shell script that retrives news and weather data using APIs and formatting this data as a email sent via cron job daily to the user
