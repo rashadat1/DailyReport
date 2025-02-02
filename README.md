@@ -1,1 +1,1 @@
-Building a shell script that retrives news and weather data using APIs and formatting this data as a email sent via cron job daily to the user
+Developed and automated a shell script that retrieves weather data from an API, formats it into a structured report, and sends it via email. Configured a cron job to automatically execute the script daily, delivering the current weather conditions and a 10-day forecast directly to my inbox.
