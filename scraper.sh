@@ -31,26 +31,26 @@ parse_weather_data() {
     location_data=$(echo "$weather_data" | jq '.location')
     timestamp=$(echo "$current_observation" | jq '.pubDate')
 
-    echo -e "${BLUE}###Current Weather Conditions###${RESET}"
+    echo -e "###Current Weather Conditions###"
     echo -n "Location: "
     echo $location_data | jq -r '.city + ", " + .country'
     echo -n "As Of: "
-    echo -e "${YELLOW}$(date -r $timestamp +%m/%d\ %H:%M) ${RESET}"
+    echo -e "$(date -r $timestamp +%m/%d\ %H:%M)"
     echo -n "Current Temperature: "
-    echo -e "${GREEN}$( echo "$current_observation" | jq '.condition' | jq '.temperature')°F, $( echo $current_observation | jq '.condition' | jq -r '.text') ${RESET}"
+    echo -e "$( echo "$current_observation" | jq '.condition' | jq '.temperature')°F, $( echo $current_observation | jq '.condition' | jq -r '.text')"
     echo -n "Humidity:"
-    echo -e "${GREEN} $( echo $current_observation | jq '.atmosphere' | jq '.humidity')%${RESET}"
+    echo -e "$( echo $current_observation | jq '.atmosphere' | jq '.humidity')%"
     echo -n "Wind Velocity:"
-    echo -e ${BLUE} $( echo $current_observation | jq -r '.wind | (.speed|tostring) + "mph " + .direction') ${RESET}
+    echo -e $( echo $current_observation | jq -r '.wind | (.speed|tostring) + "mph " + .direction')
     echo -n "Wind Chill:"
-    echo -e ${BLUE} $(echo $current_observation | jq -r '.wind | (.chill|tostring) + "°F"') ${RESET}
+    echo -e $(echo $current_observation | jq -r '.wind | (.chill|tostring) + "°F"')
     echo -n "Sunrise:"
-    echo -e ${YELLOW} $( echo $current_observation | jq '.astronomy' | jq -r '.sunrise') ${RESET}
+    echo -e $( echo $current_observation | jq '.astronomy' | jq -r '.sunrise')
     echo -n "Sunset:"
-    echo -e ${YELLOW} $( echo $current_observation | jq '.astronomy' | jq -r '.sunset') ${RESET}
+    echo -e $( echo $current_observation | jq '.astronomy' | jq -r '.sunset')
 }
 parse_forecast_data() {
-    echo -e "${BLUE}###10-Day Forecast###${RESET}"
+    echo -e "###10-Day Forecast###"
     forecasts=$(echo $(get_weather_data) | jq '.forecasts')
     echo $forecasts | jq -c '.[1:][]' | while read -r item; do
         day=$(echo $item | jq -r '.day')
@@ -59,7 +59,7 @@ parse_forecast_data() {
         high=$(echo $item | jq -r '.high')
         weather=$(echo $item | jq -r '.text')
         
-        echo -e "Day: ${YELLOW}$day${RESET}, Date: ${YELLOW}$(date -r $date "+%m/%d")${RESET}, Low: ${CYAN}$low"°F"${RESET}, High: ${RED}$high"°F"${RESET}, Conditions: ${GREEN}$weather${RESET}"
+        echo -e "Day: $day, Date: $(date -r $date "+%m/%d"), Low: $low, High: $high, Conditions: $weather"
     done
 }
 
